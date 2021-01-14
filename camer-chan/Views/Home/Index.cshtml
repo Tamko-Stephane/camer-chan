@@ -1,0 +1,96 @@
+﻿@using camer_chan.Properties
+@{
+    ViewBag.Title = "Home Page";
+}
+<div>    
+    <div class="counter-timer">
+        <p class="h1 font-weight-bolder">CHAN 2021</p>
+        <p><span>@Resources.launch_statement</span></p>
+        <div class="counter-details">
+            <p class="">
+                <span class="counter-dayLeft"></span> @Resources.day_text
+            </p>
+            <p class="">
+                <span class="counter-hourLeft"></span> @Resources.hour_text
+            </p>
+            <p class="">
+                <span class="counter-minsLeft"></span> @Resources.minute_text
+            </p>
+            <p class="">
+                <span class="counter-secondsLeft"></span> @Resources.second_text
+            </p>
+        </div>
+    </div>
+
+</div>
+
+
+@section scripts{
+    <script type="text/javascript">
+        var actualDate = '@DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss")';
+        var interval = 1000;
+        var baseUrlCultureChange = `@Url.Action("ChangeCulture")`;
+        //console.log(actualDate);
+        $(document).ready(function() {
+
+
+            //activate nanoScroller
+            //$('.nano').nanoScroller({ flash : true });
+
+            actualDate = new Date(actualDate);
+            var finalDate = new Date("@ViewData["eventDate"]");                
+                var dateDiff = finalDate - actualDate;
+                var duration = moment.duration(dateDiff);                
+                $('.counter-dayLeft').text(duration.days());
+                $('.counter-hourLeft').text(duration.hours());
+                $('.counter-minsLeft').text(duration.minutes());
+                $('.counter-secondsLeft').text(duration.seconds());
+                
+
+                setInterval(function() {
+                    duration = moment.duration(duration - interval, 'milliseconds')
+                    $('.counter-dayLeft').text(duration.days());
+                    $('.counter-hourLeft').text(duration.hours());
+                    $('.counter-minsLeft').text(duration.minutes());
+                    $('.counter-secondsLeft').text(duration.seconds());
+                }, interval );                                
+
+
+                $('.language-select input').on('change',
+                    function(e) {
+
+                        e.preventDefault();
+                        var target = e.target;                        
+                        var culture = $(target).data('lang');
+                        
+                        console.log(baseUrlCultureChange);
+                        var url = baseUrlCultureChange.concat("/?lang=" + culture);
+                        console.log(url);
+
+                        //$.ajax({
+                        //    url: url,
+                        //    success: function(data) {
+                        //        console.log(data);
+                        //    }
+                        //});
+
+                        //$('html').redirect(url);
+
+                        window.location.href = url;
+
+                        //var anchorCulture = $('#redirector');
+                        //$(anchorCulture).attr('href', url);
+                        //console.log(anchorCulture);
+                        //$(anchorCulture).click();
+                        //console.log("After Anchor Clicked");
+                        //setTimeout(function () {                            
+
+                        //    console.log(baseUrlCultureChange + " Nb: " + count);
+                        //}, 500);
+
+
+                    });
+            });
+    </script>
+
+}

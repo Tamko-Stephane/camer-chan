@@ -1,0 +1,20 @@
+﻿<div class="language-select">        
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">        
+        @if (ViewData["culture"] != null && !string.IsNullOrEmpty(ViewData["culture"].ToString()) && (ViewData["culture"].ToString() == "fr" || ViewData["culture"].ToString() == "fr-FR"))
+        {
+            <label class="btn btn-outline-danger active"><input type="radio" name="language" autocomplete="off" class="form-check-input" data-lang="fr-FR" checked />C'est mieux en français</label>
+            <label class="btn btn-outline-danger"><input type="radio" name="language" autocomplete="off" class="form-check-input" data-lang="en-US" />It's better in english</label>
+        }
+        else if (ViewData["culture"] != null && !string.IsNullOrEmpty(ViewData["culture"].ToString()) && (ViewData["culture"].ToString() == "en" || ViewData["culture"].ToString() == "en-US"))
+        {
+            <label class="btn btn-outline-danger"><input type="radio" name="language" autocomplete="off" class="form-check-input" data-lang="fr-FR" />C'est mieux en français</label>
+            <label class="btn btn-outline-danger active"><input type="radio" name="language" autocomplete="off" class="form-check-input" data-lang="en-US" checked />It's better in english</label>
+        }
+        else
+        {
+            <label class="btn btn-outline-danger"><input type="radio" name="language" autocomplete="off" class="form-check-input" data-lang="fr-FR" />C'est mieux en français</label>
+            <label class="btn btn-outline-danger"><input type="radio" name="language" autocomplete="off" class="form-check-input" data-lang="en-US" />It's better in english</label>
+        }
+
+    </div>             
+</div>
